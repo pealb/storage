@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Megerősítés</h1>
+<div mat-dialog-content>
+  <p>Biztosan törölni akarod a {{data.name ? data.name : data.address}} elemet?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="onNoClick()" cdkFocusInitial>Vissza</button>
+  <button mat-button color="warn" [mat-dialog-close]="data">Tovább</button>
+</div>

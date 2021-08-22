@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Szerkesztés</h1>
+<div mat-dialog-content>
+  <form [formGroup]="editForm" fxLayout="column" fxLayoutGap="1em">
+    <mat-form-field>
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="id" type="text" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Név</mat-label>
+        <input matInput formControlName="name" type="text" />
+        <mat-error *ngIf="editForm.controls.name.errors?.required">Ez a mező kötelező</mat-error>
+        <mat-error *ngIf="editForm.controls.name.errors?.maxlength">Maximum 50 karakter megengedett</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Szélesség</mat-label>
+        <input matInput formControlName="width" type="number" />
+        <mat-error *ngIf="editForm.controls.width.errors?.required">Ez a mező kötelező</mat-error>
+        <mat-error *ngIf="editForm.controls.width.errors?.min">A minimum érték 1</mat-error>
+        <mat-error *ngIf="editForm.controls.width.errors?.max">A maximum érték 5</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Hosszúság</mat-label>
+        <input matInput formControlName="length" type="number" />
+        <mat-error *ngIf="editForm.controls.length.errors?.required">Ez a mező kötelező</mat-error>
+        <mat-error *ngIf="editForm.controls.length.errors?.min">A minimum érték 1</mat-error>
+        <mat-error *ngIf="editForm.controls.length.errors?.max">A maximum érték 5</mat-error>
+    </mat-form-field>
+  </form>   
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Vissza</button>
+  <button mat-button color="primary" [disabled]="!editForm.valid" [mat-dialog-close]="editForm.getRawValue()" cdkFocusInitial>Tovább</button>
+</div>

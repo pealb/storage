@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{ data ? 'Szerkesztés' : 'Hozzáadás' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="1em">
+    <mat-form-field *ngIf="data">
+        <mat-label>Azonosító</mat-label>
+        <input matInput formControlName="id" type="text" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Cím</mat-label>
+        <input matInput formControlName="address" type="text" />
+        <mat-error *ngIf="formGroup.controls.address.errors?.required">Ez a mező kötelező</mat-error>
+        <mat-error *ngIf="formGroup.controls.address.errors?.maxlength">Maximum 50 karakter megengedett</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Szélesség</mat-label>
+        <input matInput formControlName="width" type="number" />
+        <mat-error *ngIf="formGroup.controls.width.errors?.required">Ez a mező kötelező</mat-error>
+        <mat-error *ngIf="formGroup.controls.width.errors?.min">A minimum érték 1</mat-error>
+        <mat-error *ngIf="formGroup.controls.width.errors?.max">A maximum érték 5</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Hosszúság</mat-label>
+        <input matInput formControlName="length" type="number" />
+        <mat-error *ngIf="formGroup.controls.length.errors?.required">Ez a mező kötelező</mat-error>
+        <mat-error *ngIf="formGroup.controls.length.errors?.min">A minimum érték 1</mat-error>
+        <mat-error *ngIf="formGroup.controls.length.errors?.max">A maximum érték 5</mat-error>
+    </mat-form-field>
+  </form>   
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Vissza</button>
+  <button mat-button color="primary" [disabled]="!formGroup.valid" [mat-dialog-close]="save()" cdkFocusInitial>Tovább</button>
+</div>

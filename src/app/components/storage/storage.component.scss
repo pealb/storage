@@ -1,0 +1,21 @@
+.container {
+    padding: 1em;
+}
+
+table {
+    width: 100%;
+}
+
+mat-icon {
+    transform: rotate(90deg);
+    cursor: pointer;
+    font-size: 2em;
+}
+
+.info {
+    width: fit-content;
+    display: block;
+    padding: .5em;
+    margin: 1em 0;
+    border-radius: 5px;
+}

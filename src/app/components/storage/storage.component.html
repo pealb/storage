@@ -1,0 +1,50 @@
+<app-header></app-header>
+<div class="container">
+    <h1>Raktárak</h1>
+    <mat-form-field>
+        <mat-label>Cím</mat-label>
+        <input matInput type="text" [(ngModel)]="filterAddress" />
+    </mat-form-field>
+    <table mat-table [dataSource]="storages$ | async | filterByAddress: filterAddress | limit: pageEvent: pageSize" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Azonosító</th>
+          <td mat-cell *matCellDef="let storage">{{storage.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>Cím</th>
+          <td mat-cell *matCellDef="let storage">{{storage.address}}</td>
+        </ng-container>
+        <ng-container matColumnDef="length">
+            <th mat-header-cell *matHeaderCellDef>Hosszúság</th>
+            <td mat-cell *matCellDef="let storage">{{storage.length}}</td>
+        </ng-container>
+        <ng-container matColumnDef="width">
+            <th mat-header-cell *matHeaderCellDef>Szélesség</th>
+            <td mat-cell *matCellDef="let storage">{{storage.width}}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions" *ngIf="admin">
+            <th mat-header-cell *matHeaderCellDef>Műveletek</th>
+            <td mat-cell *matCellDef="let storage"><mat-icon (contextmenu)="onContextMenu($event, storage)">play_arrow</mat-icon></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [length]="(storages$ | async)?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="pageEvent = $event"></mat-paginator>
+    <button *ngIf="admin" mat-raised-button (click)="new()">Új raktár</button>
+    <div *ngIf="storageParams && objectParams" class="info" [style.background-color]="storageParams.length >= objectParams.length && storageParams.width >= objectParams.width ? 'green' : 'red'">
+        {{ storageParams.length >= objectParams.length && storageParams.width >= objectParams.width ? 'Belefér' : 'Nem fér bele' }}
+    </div>
+</div>
+<div style="visibility: hidden; position: fixed"
+  [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y"
+  [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+	<ng-template matMenuContent let-storage="storage">
+		<button mat-menu-item (click)="onContextMenuEdit(storage)">Szerkesztés</button>
+		<button mat-menu-item (click)="onContextMenuDelete(storage)">Törlés</button>
+	</ng-template>
+</mat-menu>
+  
+

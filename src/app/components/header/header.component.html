@@ -1,0 +1,8 @@
+<nav fxLayout fxLayoutAlign="space-between center">
+    <ul fxLayout fxLayoutGap="1em">
+        <li [routerLink]="['/objects']">Tárgyak</li>
+        <li [routerLink]="['/storages']">Raktárak</li>
+        <li (click)="logout()">Kijelentkezés</li>
+    </ul>
+    <span>Üdv, {{name}}</span>
+</nav>

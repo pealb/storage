@@ -1,0 +1,18 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+    <h1>Üdv, a folytatáshoz jelentkezz be</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5em">
+        <mat-error [innerHTML]="auth.error | async"></mat-error>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email" />
+            <mat-error *ngIf="loginForm.controls.email.errors?.email">Nem valós email</mat-error>
+            <mat-error *ngIf="loginForm.controls.email.errors?.required">Kötelező mező</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Jelszó</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="loginForm.controls.password.errors?.required">Kötelező mező</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Belépés</button>
+    </form>
+</div>
